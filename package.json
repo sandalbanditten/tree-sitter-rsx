@@ -1,0 +1,10 @@
+{
+  "name": "tree-sitter-rsx",
+  "version": "0.1.0",
+  "description": "Dioxus rsx! macro bodies for tree-sitter, on top of tree-sitter-rust",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "tree-sitter-rust": "github:tree-sitter/tree-sitter-rust#77a3747266f4d621d0757825e6b11edcbf991ca5"
+  }
+}

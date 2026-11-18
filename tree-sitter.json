@@ -1,0 +1,20 @@
+{
+  "grammars": [
+    {
+      "name": "rsx",
+      "camelcase": "Rsx",
+      "scope": "source.rsx",
+      "path": ".",
+      "file-types": [],
+      "injection-regex": "^rsx$"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Dioxus rsx! macro bodies, on top of tree-sitter-rust",
+    "links": {
+      "repository": "https://github.com/sandalbanditten/tree-sitter-rsx"
+    }
+  }
+}
