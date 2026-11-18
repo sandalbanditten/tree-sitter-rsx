@@ -15,15 +15,15 @@ Elements, attributes and text
   (element
     name: (identifier)
     body: (element_body
-      (attribute
+      (rsx_attribute
         name: (identifier)
         value: (string_literal
           (string_content)))
-      (attribute
+      (rsx_attribute
         name: (identifier)
         value: (string_literal
           (string_content)))
-      (attribute
+      (rsx_attribute
         name: (string_literal
           (string_content))
         value: (integer_literal))
@@ -55,7 +55,7 @@ Components, paths, generics, web components and shorthand
   (element
     name: (identifier)
     body: (element_body
-      (attribute
+      (rsx_attribute
         name: (identifier))))
   (element
     name: (scoped_identifier
@@ -97,7 +97,7 @@ Rust attribute values
   (element
     name: (identifier)
     body: (element_body
-      (attribute
+      (rsx_attribute
         name: (identifier)
         value: (struct_expression
           name: (scoped_type_identifier
@@ -106,7 +106,7 @@ Rust attribute values
           body: (field_initializer_list
             (shorthand_field_initializer
               (identifier)))))
-      (attribute
+      (rsx_attribute
         name: (identifier)
         value: (closure_expression
           parameters: (closure_parameters)
@@ -115,7 +115,7 @@ Rust attribute values
               (compound_assignment_expr
                 left: (identifier)
                 right: (integer_literal))))))
-      (attribute
+      (rsx_attribute
         name: (identifier)
         value: (if_expression
           condition: (identifier)
@@ -205,7 +205,7 @@ Struct literals and paths as attribute values
   (element
     name: (identifier)
     body: (element_body
-      (attribute
+      (rsx_attribute
         name: (identifier)
         value: (struct_expression
           name: (type_identifier)
@@ -213,7 +213,7 @@ Struct literals and paths as attribute values
             (field_initializer
               field: (field_identifier)
               value: (integer_literal)))))
-      (attribute
+      (rsx_attribute
         name: (identifier)
         value: (struct_expression
           name: (scoped_type_identifier
@@ -222,10 +222,53 @@ Struct literals and paths as attribute values
               name: (identifier))
             name: (identifier))
           body: (field_initializer_list)))
-      (attribute
+      (rsx_attribute
         name: (identifier)
         value: (type_cast_expression
           value: (scoped_identifier
             path: (identifier)
             name: (identifier))
           type: (primitive_type))))))
+
+================================================================================
+Parentheses, brackets and raw strings
+================================================================================
+
+(
+    p { r#"a "quoted" {x}"# }
+)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (element
+    name: (identifier)
+    body: (element_body
+      (raw_string_literal
+        (string_content)))))
+
+================================================================================
+Rust attributes inside blocks
+================================================================================
+
+[
+    {
+        #[allow(unused)]
+        let x = 1;
+        x
+    }
+]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block
+    (attribute_item
+      (attribute
+        (identifier)
+        arguments: (token_tree
+          (identifier))))
+    (let_declaration
+      pattern: (identifier)
+      value: (integer_literal))
+    (identifier)))

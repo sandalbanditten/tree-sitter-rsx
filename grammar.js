@@ -16,10 +16,18 @@ module.exports = grammar(rust, {
 
   rules: {
     // The macro's `{ ... }` token tree, as injected by the host Rust.
-    source_file: $ => seq('{', repeat($._item), '}'),
+    // `shebang` only keeps Rust's inherited queries valid.
+    source_file: $ => seq(
+      optional($.shebang),
+      choice(
+        seq('{', repeat($._item), '}'),
+        seq('(', repeat($._item), ')'),
+        seq('[', repeat($._item), ']'),
+      ),
+    ),
 
     _item: $ => choice(
-      $.attribute,
+      $.rsx_attribute,
       $.base_field_initializer,
       $._node,
       ',',
@@ -28,6 +36,7 @@ module.exports = grammar(rust, {
     _node: $ => choice(
       $.element,
       $.string_literal,
+      $.raw_string_literal,
       $.block,
       $.match_expression,
       alias($.rsx_if, $.if_expression),
@@ -68,7 +77,8 @@ module.exports = grammar(rust, {
 
     element_body: $ => seq('{', repeat($._item), '}'),
 
-    attribute: $ => choice(
+    // Not `attribute`: that is Rust's `#[...]`.
+    rsx_attribute: $ => choice(
       seq(
         field('name', choice($.identifier, $.string_literal)),
         ':',

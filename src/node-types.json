@@ -597,16 +597,12 @@
     "type": "attribute",
     "named": true,
     "fields": {
-      "name": {
+      "arguments": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "string_literal",
+            "type": "token_tree",
             "named": true
           }
         ]
@@ -621,6 +617,36 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "crate",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "metavariable",
+          "named": true
+        },
+        {
+          "type": "scoped_identifier",
+          "named": true
+        },
+        {
+          "type": "self",
+          "named": true
+        },
+        {
+          "type": "super",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1620,10 +1646,6 @@
       "required": false,
       "types": [
         {
-          "type": "attribute",
-          "named": true
-        },
-        {
           "type": "base_field_initializer",
           "named": true
         },
@@ -1645,6 +1667,14 @@
         },
         {
           "type": "match_expression",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "rsx_attribute",
           "named": true
         },
         {
@@ -3608,6 +3638,36 @@
     }
   },
   {
+    "type": "rsx_attribute",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "string_literal",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "scoped_identifier",
     "named": true,
     "fields": {
@@ -3836,10 +3896,6 @@
       "required": false,
       "types": [
         {
-          "type": "attribute",
-          "named": true
-        },
-        {
           "type": "base_field_initializer",
           "named": true
         },
@@ -3861,6 +3917,18 @@
         },
         {
           "type": "match_expression",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
+          "type": "rsx_attribute",
+          "named": true
+        },
+        {
+          "type": "shebang",
           "named": true
         },
         {
@@ -5619,6 +5687,10 @@
   },
   {
     "type": "self",
+    "named": true
+  },
+  {
+    "type": "shebang",
     "named": true
   },
   {
