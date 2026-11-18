@@ -9700,8 +9700,13 @@
           "name": "rsx_attribute"
         },
         {
-          "type": "SYMBOL",
-          "name": "base_field_initializer"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "rsx_spread"
+          },
+          "named": true,
+          "value": "base_field_initializer"
         },
         {
           "type": "SYMBOL",
@@ -9790,6 +9795,15 @@
                 },
                 "named": true,
                 "value": "generic_type_with_turbofish"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "element_generic"
+                },
+                "named": true,
+                "value": "generic_type"
               }
             ]
           }
@@ -9919,6 +9933,41 @@
         }
       ]
     },
+    "element_generic": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "element_path"
+                },
+                "named": true,
+                "value": "scoped_identifier"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "type_arguments",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_arguments"
+          }
+        }
+      ]
+    },
     "element_body": {
       "type": "SEQ",
       "members": [
@@ -10001,6 +10050,33 @@
               "name": "identifier"
             }
           }
+        }
+      ]
+    },
+    "rsx_spread": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": ".."
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_expression"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "attribute_struct"
+              },
+              "named": true,
+              "value": "struct_expression"
+            }
+          ]
         }
       ]
     },

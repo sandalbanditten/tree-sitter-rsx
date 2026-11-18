@@ -28,7 +28,7 @@ module.exports = grammar(rust, {
 
     _item: $ => choice(
       $.rsx_attribute,
-      $.base_field_initializer,
+      alias($.rsx_spread, $.base_field_initializer),
       $._node,
       ',',
     ),
@@ -50,6 +50,7 @@ module.exports = grammar(rust, {
         $.custom_element_name,
         alias($.element_path, $.scoped_identifier),
         alias($.element_turbofish, $.generic_type_with_turbofish),
+        alias($.element_generic, $.generic_type),
       )),
       field('body', $.element_body),
     ),
@@ -75,6 +76,11 @@ module.exports = grammar(rust, {
       field('type_arguments', $.type_arguments),
     ),
 
+    element_generic: $ => seq(
+      field('type', choice($.identifier, alias($.element_path, $.scoped_identifier))),
+      field('type_arguments', $.type_arguments),
+    ),
+
     element_body: $ => seq('{', repeat($._item), '}'),
 
     // Not `attribute`: that is Rust's `#[...]`.
@@ -87,6 +93,8 @@ module.exports = grammar(rust, {
       // `{ id }` is `id: id`
       prec(-1, field('name', $.identifier)),
     ),
+
+    rsx_spread: $ => seq('..', choice($._expression, alias($.attribute_struct, $.struct_expression))),
 
     // syn reads `to: Route::Post { id }` as a struct literal, where Rust's
     // condition rules would end the value before a `{` child.

@@ -272,3 +272,32 @@ Rust attributes inside blocks
       pattern: (identifier)
       value: (integer_literal))
     (identifier)))
+
+================================================================================
+Struct literal spreads and generic components
+================================================================================
+
+{
+    Taller { ..TallerProps { a: 1 } }
+    Input<i32> {}
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (element
+    name: (identifier)
+    body: (element_body
+      (base_field_initializer
+        (struct_expression
+          name: (type_identifier)
+          body: (field_initializer_list
+            (field_initializer
+              field: (field_identifier)
+              value: (integer_literal)))))))
+  (element
+    name: (generic_type
+      type: (identifier)
+      type_arguments: (type_arguments
+        (primitive_type)))
+    body: (element_body)))
